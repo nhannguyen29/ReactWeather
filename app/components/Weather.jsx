@@ -2,11 +2,14 @@ var React = require('react');
 var WeatherForm = require('WeatherForm');
 var WeatherMessage = require('WeatherMessage');
 var OpenWeatherMap = require('OpenWeatherMap');
+var ErrorDialog = require('ErrorDialog');
 
 var Weather = React.createClass({
     getInitialState: function() {
         return {
-            isLoading: false
+            isLoading: false,
+            openDialog: false,
+            errorDialogMessage: undefined
         };
     },
 
@@ -14,31 +17,50 @@ var Weather = React.createClass({
         var that = this;
 
         this.setState({
-            isLoading: true
+            isLoading: true,
+            openDialog: false
         });
 
         OpenWeatherMap.getTemp(location).then(function(temp) {
             that.setState({
                 location: location,
                 temp: temp,
-                isLoading: false
+                isLoading: false,
+                openDialog: false
             });
         }, function(err) {
             that.setState({
-                isLoading: false
+                isLoading: false,
+                openDialog: true,
+                errorDialogMessage: err.message
             });
-            alert(err);
+        });
+    },
+
+    handleDialogClose: function() {
+        this.setState({
+            openDialog: false,
+            errorDialogMessage: undefined
         });
     },
 
     render: function() {
-        var {isLoading,location,temp} = this.state;
+        var {isLoading,location,temp, openDialog, errorDialogMessage} = this.state;
         
+        var that = this;
         function renderMessage() {
             if (isLoading) {
                 return <h3 style={{textAlign: 'center'}}>Getting the weather...</h3>
-            } else if (temp && location) {
+            } 
+            else if (temp && location) {
                 return <WeatherMessage location={location} temp={temp}/>
+            }
+        };
+
+        function renderError() {
+            if (openDialog && errorDialogMessage)
+            {
+                return <ErrorDialog onClose={that.handleDialogClose} message={errorDialogMessage} />
             }
         };
 
@@ -47,6 +69,7 @@ var Weather = React.createClass({
                 <h1 style={{textAlign: 'center'}}>Get Weather</h1>
                 <WeatherForm onSearch={this.handleSearch}/>
                 {renderMessage()}
+                {renderError()}
             </div>
         );
     }

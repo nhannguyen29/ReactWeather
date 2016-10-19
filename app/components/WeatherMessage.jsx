@@ -5,6 +5,6 @@ var WeatherMessage = ({location, temp}) => {
         <div>
             <h3 style={{textAlign: 'center'}}>It's {temp} in {location}</h3> 
         </div>
-        );
+    );
 };
 module.exports = WeatherMessage;
