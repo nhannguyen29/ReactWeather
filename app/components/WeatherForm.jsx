@@ -1,4 +1,5 @@
 var React = require('react');
+var {Button} = require('react-mdl');
 
 var WeatherForm = React.createClass({
     onFormSubmit: function(e) {
@@ -16,10 +17,11 @@ var WeatherForm = React.createClass({
         return (
             <form onSubmit={this.onFormSubmit}>
                 <div>
-                    <input type="text" ref="location" placeholder="Enter a city"/>
+                    <input style={{width: '100%'}} type="text" ref="location" placeholder="Enter a city"/>
                 </div>
-                <div>
-                    <button>Get Weather</button>
+                <br/>
+                <div style={{textAlign: 'center'}}>
+                    <Button raised ripple>Get Weather</Button>
                 </div>
             </form>
         );
