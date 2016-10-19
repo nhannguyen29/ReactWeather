@@ -1,6 +1,6 @@
 var React = require('react');
 var Nav = require('Nav');
-var {Layout,Content} = require('react-mdl');
+var {Layout, Content, Grid, Cell} = require('react-mdl');
 
 var Main = (props) => {
     return (
@@ -8,10 +8,16 @@ var Main = (props) => {
             <Layout fixedHeader>
                 <Nav />
                 <Content>
-                    {props.children}
+                    <Grid>
+                        <Cell col={4} offset={4}>
+                            {props.children}
+                        </Cell>
+                    </Grid>
+
                 </Content>
             </Layout>
         </div>
     );
 };
+
 module.exports = Main;
