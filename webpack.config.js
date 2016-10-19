@@ -5,6 +5,7 @@ module.exports = {
         'script!jquery/dist/jquery.min.js',
         'script!react-mdl/extra/material.min.js',
         'style!css!react-mdl/extra/material.min.css',
+        'style!css!app/styles/app.css',
         './app/app.jsx'
     ], 
     externals: {
