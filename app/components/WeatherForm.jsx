@@ -1,11 +1,11 @@
 var React = require('react');
-var {Button} = require('react-mdl');
+var {Button, Textfield} = require('react-mdl');
 
 var WeatherForm = React.createClass({
     onFormSubmit: function(e) {
         e.preventDefault();
 
-        var location = this.refs.location.value;
+        var location = this.refs.location.inputRef.value;
         if (location.length > 0)
         {
             this.refs.location.value = '';
@@ -17,7 +17,7 @@ var WeatherForm = React.createClass({
         return (
             <form onSubmit={this.onFormSubmit}>
                 <div>
-                    <input style={{width: '100%'}} type="text" ref="location" placeholder="Enter a city"/>
+                    <Textfield label="Enter a city" style={{width: '100%'}} ref="location"/>
                 </div>
                 <br/>
                 <div style={{textAlign: 'center'}}>
